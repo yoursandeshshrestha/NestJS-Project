@@ -1,11 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Contact } from '../contact/contact.entity';
 
-@Entity({ name: 'users' })
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
@@ -13,4 +14,7 @@ export class User {
 
   @Column({ default: false })
   isVerified: boolean;
+
+  @OneToMany(() => Contact, (contact) => contact.user)
+  contacts: Contact[];
 }
